@@ -17,18 +17,4 @@ class UserController extends AbstractController
             ];
         return $this->json($users);
     }
-    #[Route('/api/users/{id}', name: 'get_user_by_id', methods: ['GET'])]
-    public function getUserById(int $id): JsonResponse
-    {
-    $users = [
-        1 => ['id' => 1, 'name' => 'Jan Kowalski', 'email' =>
-        'jan@example.com'],
-        2 => ['id' => 2, 'name' => 'Anna Nowak', 'email' =>
-        'anna@example.com'],
-        ];
-    if (!isset($users[$id])) {
-        return $this->json(['error' => 'User not found'], 404);
-    }
-    return $this->json($users[$id]);
-    }
 }
