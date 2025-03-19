@@ -1,4 +1,4 @@
-FROM php:8.2-cli
+FROM php:8.2-alpine
 
 WORKDIR /var/www
 
@@ -12,7 +12,5 @@ RUN apk update && apk add --no-cache \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
-
-RUN composer install
 
 CMD bash -c "composer install && php -S 0.0.0.0:8000 -t public"
