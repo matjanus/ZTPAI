@@ -10,10 +10,10 @@ class UserController extends AbstractController
     public function getUsers(): JsonResponse
     {
         $users = [
-            ['id' => 1, 'name' => 'Jan Kowalski', 'email' =>
-                'jan@example.com'],
-            ['id' => 2, 'name' => 'Anna Nowak', 'email' =>
-                'anna@example.com'],
+            ['id' => 1, 'name' => 'MGRkowal', 'email' =>
+                'janKowal@gmail.com'],
+            ['id' => 2, 'name' => 'alamakota', 'email' =>
+                'alaKota@gmail.com'],
             ];
         return $this->json($users);
     }

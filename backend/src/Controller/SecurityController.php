@@ -22,13 +22,6 @@ class SecurityController extends AbstractController
             return $this->json(['error' => 'Invalid credentials'], 400);
         }
 
-        // Wyszukaj użytkownika w bazie danych (przykładowy kod)
-        // $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $email]);
-
-        if (!$user || !password_verify($password, $user->getPassword())) {
-            return $this->json(['error' => 'Invalid credentials'], 401);
-        }
-
-        return $this->json(['message' => 'Login successful', 'user' => $user->getEmail()], 200);
+        return $this->json(['message' => 'Login successful', 'email' => $email], 200);
     }
 }
