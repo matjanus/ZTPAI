@@ -8,7 +8,6 @@ function App() {
       <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<h1>Rejestracja (do zaimplementowania)</h1>} />
-     
       </Routes>
     </Router>
   );
