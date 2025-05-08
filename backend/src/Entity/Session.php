@@ -14,38 +14,38 @@ class Session
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'id_session')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $id_user = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $lastActivity = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $last_activity = null;
+    #[ORM\ManyToOne(inversedBy: 'idUser')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $User = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdUser(): ?User
+    public function getLastActivity(): ?\DateTimeInterface
     {
-        return $this->id_user;
+        return $this->lastActivity;
     }
 
-    public function setIdUser(?User $id_user): static
+    public function setLastActivity(\DateTimeInterface $lastActivity): static
     {
-        $this->id_user = $id_user;
+        $this->lastActivity = $lastActivity;
 
         return $this;
     }
 
-    public function getLastActivity(): ?\DateTimeInterface
+    public function getIdUser(): ?User
     {
-        return $this->last_activity;
+        return $this->idUser;
     }
 
-    public function setLastActivity(\DateTimeInterface $last_activity): static
+    public function setIdUser(?User $idUser): static
     {
-        $this->last_activity = $last_activity;
+        $this->idUser = $idUser;
 
         return $this;
     }

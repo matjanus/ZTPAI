@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,25 +23,25 @@ class User
     #[ORM\Column(length: 20)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 80)]
     private ?string $password = null;
 
     #[ORM\Column(length: 40)]
     private ?string $email = null;
 
-    #[ORM\ManyToOne(inversedBy: 'id_user')]
+    #[ORM\ManyToOne(inversedBy: 'idRole')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
     /**
      * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'id_user', orphanRemoval: true)]
-    private Collection $id_session;
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'idUser')]
+    private Collection $idUser;
 
     public function __construct()
     {
-        $this->id_session = new ArrayCollection();
+        $this->idUser = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,30 +100,45 @@ class User
     /**
      * @return Collection<int, Session>
      */
-    public function getIdSession(): Collection
+    public function getIdUser(): Collection
     {
-        return $this->id_session;
+        return $this->idUser;
     }
 
-    public function addIdSession(Session $idSession): static
+    public function addIdUser(Session $idUser): static
     {
-        if (!$this->id_session->contains($idSession)) {
-            $this->id_session->add($idSession);
-            $idSession->setIdUser($this);
+        if (!$this->idUser->contains($idUser)) {
+            $this->idUser->add($idUser);
+            $idUser->setIdUser($this);
         }
 
         return $this;
     }
 
-    public function removeIdSession(Session $idSession): static
+    public function removeIdUser(Session $idUser): static
     {
-        if ($this->id_session->removeElement($idSession)) {
+        if ($this->idUser->removeElement($idUser)) {
             // set the owning side to null (unless already changed)
-            if ($idSession->getIdUser() === $this) {
-                $idSession->setIdUser(null);
+            if ($idUser->getIdUser() === $this) {
+                $idUser->setIdUser(null);
             }
         }
 
         return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return ['ROLE_' . strtoupper($this->role->getRoleName())];
+    }
+
+    public function eraseCredentials(): void
+    {
+        
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
     }
 }

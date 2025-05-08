@@ -15,17 +15,18 @@ class Role
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 10)]
+    private ?string $roleName = null;
+
     /**
      * @var Collection<int, User>
      */
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'role')]
-    private Collection $id_user;
-
-    
+    private Collection $idRole;
 
     public function __construct()
     {
-        $this->id_user = new ArrayCollection();
+        $this->idRole = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -33,30 +34,42 @@ class Role
         return $this->id;
     }
 
+    public function getRoleName(): ?string
+    {
+        return $this->roleName;
+    }
+
+    public function setRoleName(string $roleName): static
+    {
+        $this->roleName = $roleName;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, User>
      */
-    public function getIdUser(): Collection
+    public function getIdRole(): Collection
     {
-        return $this->id_user;
+        return $this->idRole;
     }
 
-    public function addIdUser(User $idUser): static
+    public function addIdRole(User $idRole): static
     {
-        if (!$this->id_user->contains($idUser)) {
-            $this->id_user->add($idUser);
-            $idUser->setRole($this);
+        if (!$this->idRole->contains($idRole)) {
+            $this->idRole->add($idRole);
+            $idRole->setRole($this);
         }
 
         return $this;
     }
 
-    public function removeIdUser(User $idUser): static
+    public function removeIdRole(User $idRole): static
     {
-        if ($this->id_user->removeElement($idUser)) {
+        if ($this->idRole->removeElement($idRole)) {
             // set the owning side to null (unless already changed)
-            if ($idUser->getRole() === $this) {
-                $idUser->setRole(null);
+            if ($idRole->getRole() === $this) {
+                $idRole->setRole(null);
             }
         }
 
