@@ -6,7 +6,7 @@ import api from "../services/api";
 import "../styles/LoginPage.css";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const LoginPage = () => {
     setError(null);
 
     try {
-      const response = await api.post("/api/login", { email, password });
+      const response = await api.post("login", { username, password });
       alert("Zalogowano pomyślnie: " + response.data.user);
       // Tutaj możesz dodać logikę zapisywania tokena JWT (jeśli używasz)
     } catch (err) {
@@ -33,10 +33,10 @@ const LoginPage = () => {
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleLogin}>
           <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
           <input
