@@ -39,9 +39,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'idUser')]
     private Collection $idUser;
 
+    /**
+     * @var Collection<int, Quiz>
+     */
+    #[ORM\OneToMany(targetEntity: Quiz::class, mappedBy: 'owner', orphanRemoval: true)]
+    private Collection $quizzes;
+
+    /**
+     * @var Collection<int, UserPlay>
+     */
+    #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'player', orphanRemoval: true)]
+    private Collection $userPlays;
+
     public function __construct()
     {
         $this->idUser = new ArrayCollection();
+        $this->quizzes = new ArrayCollection();
+        $this->userPlays = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,5 +154,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Quiz>
+     */
+    public function getQuizzes(): Collection
+    {
+        return $this->quizzes;
+    }
+
+    public function addQuiz(Quiz $quiz): static
+    {
+        if (!$this->quizzes->contains($quiz)) {
+            $this->quizzes->add($quiz);
+            $quiz->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuiz(Quiz $quiz): static
+    {
+        if ($this->quizzes->removeElement($quiz)) {
+            // set the owning side to null (unless already changed)
+            if ($quiz->getOwner() === $this) {
+                $quiz->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserPlay>
+     */
+    public function getUserPlays(): Collection
+    {
+        return $this->userPlays;
+    }
+
+    public function addUserPlay(UserPlay $userPlay): static
+    {
+        if (!$this->userPlays->contains($userPlay)) {
+            $this->userPlays->add($userPlay);
+            $userPlay->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPlay(UserPlay $userPlay): static
+    {
+        if ($this->userPlays->removeElement($userPlay)) {
+            // set the owning side to null (unless already changed)
+            if ($userPlay->getPlayer() === $this) {
+                $userPlay->setPlayer(null);
+            }
+        }
+
+        return $this;
     }
 }
