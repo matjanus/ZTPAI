@@ -2,6 +2,7 @@
   margin: 2em;
   width: 100%;
   background: white;
+  color: #6E7CF9;
   padding: 2em;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
@@ -23,15 +24,20 @@
   /* padding-top: 0.5em;
   padding-bottom: 0.5em; */
   padding: 0.5em 0.2em;
-  border: 1px solid #aaa;
+  border: 1px solid #6E7CF9;
   border-radius: 5px;
+}
+
+.auth-form  button:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .auth-form button {
   margin-top: 20px;
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #6E7CF9;
   color: white;
   border: none;
   font-size: 1rem;

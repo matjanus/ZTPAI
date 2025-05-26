@@ -1,5 +1,5 @@
 .logo-panel {
-  background-color: #007bff;
+  background-color: #6E7CF9;
   color: white;
   display: flex;
   align-items: center;
@@ -7,6 +7,6 @@
 }
 
 .logo-text {
-  font-size: 3em;
-  font-weight: bold;
+  font-size: 5em;
+  font-weight: 900;
 }
