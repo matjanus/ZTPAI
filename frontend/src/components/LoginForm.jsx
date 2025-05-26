@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./LoginForm.css";
+import "./AuthForm.css";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -33,11 +33,10 @@ export default function LoginForm() {
   };
 
   return (
-    <form className="login-form" onSubmit={handleLogin}>
-      <h2>Zaloguj się</h2>
+    <form className="auth-form" onSubmit={handleLogin}>
       {error && <p className="error">{error}</p>}
 
-      <label>Nazwa użytkownika</label>
+      <label>Username</label>
       <input
         type="text"
         value={username}
@@ -45,7 +44,7 @@ export default function LoginForm() {
         required
       />
 
-      <label>Hasło</label>
+      <label>Password</label>
       <input
         type="password"
         value={password}

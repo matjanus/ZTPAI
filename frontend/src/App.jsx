@@ -1,14 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";;
-// import Login from "./pages/Login";
+
 import LoginPage from "./pages/LoginPage";
-import RegisterForm from "./components/RegisterForm";
+import RegisterPage from "./pages/RegisterPage";
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterForm />} />
+        {/* <Route path="/" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <RegisterPage />
+            </RequireAuth>
+          }
+        />
+
       </Routes>
     </Router>
   );
