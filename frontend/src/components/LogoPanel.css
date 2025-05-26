@@ -1,0 +1,12 @@
+.logo-panel {
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 3em;
+  font-weight: bold;
+}
