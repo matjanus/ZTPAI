@@ -1,0 +1,45 @@
+.recent-quizzes {
+  max-width: 50%;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.quiz-list {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+h3{
+      color: #6E7CF9;
+}
+
+.quiz-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  transition: background 0.4s;
+}
+
+.quiz-item:nth-child(odd) {
+  background-color: #ECECEC;
+}
+
+.quiz-item:nth-child(even) {
+  background-color: #F0F0F0;
+}
+
+.quiz-item:hover {
+  background-color: #d0d0d0;
+}
+
+.quiz-title,
+.quiz-author {
+  text-decoration: none;
+    color: #6E7CF9;
+}
+
+.quiz-title:hover,
+.quiz-author:hover {
+  text-decoration: underline;
+}
