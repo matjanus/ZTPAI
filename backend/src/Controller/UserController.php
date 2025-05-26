@@ -17,4 +17,21 @@ class UserController extends AbstractController
             ];
         return $this->json($users);
     }
+
+    #[Route('/api/me', name: 'api_me', methods: ['GET'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function me(): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json(['error' => 'User unauthorized.'], 401);
+        }
+
+        return $this->json([
+            'id' => $user->getId(),
+            'username' => $user->getUserIdentifier(),
+            'email' => $user->getEmail(),
+        ]);
+    }
 }
