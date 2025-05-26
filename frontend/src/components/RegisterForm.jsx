@@ -41,7 +41,7 @@ export default function RegisterForm() {
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/register', form);
-      setMessage(`Zarejestrowano użytkownika: ${response.data.username}`);
+      setMessage(`User registered: ${response.data.username}`);
     } catch (error) {
       if (error.response?.data?.error) {
         setMessage(`Error: ${error.response.data.error}`);
