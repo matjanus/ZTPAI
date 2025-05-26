@@ -1,0 +1,12 @@
+.register-page {
+    background-color: #007bff;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form{
+    width: 30%;
+}
