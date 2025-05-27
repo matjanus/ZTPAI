@@ -6,7 +6,7 @@ import "./MainPage.css";
 
 export default function MainPage() {
   return (
-    <div class="main-page">
+    <div className="main-page">
         <Navbar />
         <RecentQuizzes />
     </div>

@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './QuizzesList.css';
 
+
 export default function RecentQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const token = localStorage.getItem('jwt');
+  const token = localStorage.getItem('token');
 
   const loadQuizzes = async () => {
     try {
@@ -16,7 +17,7 @@ export default function RecentQuizzes() {
         },
       });
 
-      if (!res.ok) throw new Error('Błąd pobierania quizów');
+      if (!res.ok) throw new Error('Quiz download error');
 
       const data = await res.json();
 
@@ -47,10 +48,10 @@ export default function RecentQuizzes() {
             key={quiz.id}
           >
             <Link to={`/quiz/${quiz.id}`} className="quiz-title">
-              {quiz.title}
+              {quiz.quizName}
             </Link>
-            <Link to={`/user/${quiz.author.id}`} className="quiz-author">
-              {quiz.author.username}
+            <Link to={`/user/${quiz.ownerId}`} className="quiz-author">
+              {quiz.owner}
             </Link>
           </div>
         ))}
