@@ -39,7 +39,7 @@ export default function RequireAuth({ children }) {
   }, [token]);
 
   if (isValid === null) {
-    return <div>Sprawdzanie tokenu...</div>;
+    return "";
   }
 
   if (!isValid) {
