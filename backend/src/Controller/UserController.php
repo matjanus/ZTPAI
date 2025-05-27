@@ -34,4 +34,6 @@ class UserController extends AbstractController
             'email' => $user->getEmail(),
         ]);
     }
+
+
 }

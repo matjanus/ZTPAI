@@ -13,9 +13,11 @@ class Quiz
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['quiz:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 40)]
+    #[Groups(['quiz:read'])]
     private ?string $quizName = null;
 
     #[ORM\ManyToOne(inversedBy: 'quizzes')]

@@ -6,7 +6,7 @@ export default function MyCourseList() {
   const [courses, setCourses] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const token = localStorage.getItem('jwt');
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   useEffect(() => {
