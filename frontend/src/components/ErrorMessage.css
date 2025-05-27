@@ -1,0 +1,16 @@
+.error-message {
+  text-align: center;
+  margin-top: 100px;
+  font-family: sans-serif;
+}
+
+.error-message h1 {
+  font-size: 3rem;
+  color: #0056b3;
+  margin-bottom: 20px;
+}
+
+.error-message p {
+  font-size: 1.5rem;
+  color: #6E7CF9;
+}
