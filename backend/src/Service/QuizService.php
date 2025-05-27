@@ -22,25 +22,24 @@ class QuizService
         $this->userPlayRepository = $userPlayRepository;
     }
 
-    public function getLastPlayedQuizzesPaginated(User $user, int $page = 1, int $limit = 10): array
+    public function getLastPlayedQuizzesPaginated(User $user, int $page, int $limit): array
     {
-        $plays = $this->userPlayRepository->findLastPlayedByUserPaginated($user, $page, $limit);
-        return array_map(fn($play) => $play->getQuiz(), $plays);
+        return $this->userPlayRepository->findLastPlayedByUserPaginated($user, $page, $limit);
     }
 
     public function createQuiz(string $title, string $accessName, array $vocabulary, User $user): Quiz
     {
         if (empty($title)) {
-            throw new \InvalidArgumentException("Tytuł quizu nie może być pusty.");
+            throw new \InvalidArgumentException("The title of the quiz must not be empty.");
         }
 
         if (empty($vocabulary)) {
-            throw new \InvalidArgumentException("Quiz musi zawierać przynajmniej jedno słowo.");
+            throw new \InvalidArgumentException("The quiz must contain at least one word.");
         }
 
         $access = $this->accessRepository->findOneBy(['accessName' => $accessName]);
         if (!$access) {
-            throw new \InvalidArgumentException("Nieprawidłowy typ dostępu: $accessName");
+            throw new \InvalidArgumentException("Incorrect access type: $accessName");
         }
 
         $quiz = new Quiz();

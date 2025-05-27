@@ -143,7 +143,7 @@ class QuizController extends AbstractController
 
         $quizzes = $quizService->getLastPlayedQuizzesPaginated($user, $page, $limit);
 
-        return $this->json($quizzes, 200, [], ['groups' => 'quiz:read']);
+        return $this->json($quizzes, 200);
     }
 
     #[Route('/api/create_quiz', name: 'create_quiz', methods: ['POST'])]
