@@ -4,16 +4,22 @@ import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import RegisterPage from "./pages/RegisterPage";
 import RequireAuth from './components/RequireAuth';
+import UserProfilePage from "./pages/UserProfilePage";
+import MyQuizzesPage from  "./pages/MyQuizzesPage";
+import AddQuizPage from  "./pages/AddQuizPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* <Route path="/" element={<LoginPage />} /> */}
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<RequireAuth><MainPage /></RequireAuth>}
-        />
+        <Route path="/" element={<RequireAuth><MainPage /></RequireAuth>}/>
+        <Route path="/user/:id" element={<RequireAuth><UserProfilePage /></RequireAuth>}/>
+        <Route path="/quizzes" element={<RequireAuth><MyQuizzesPage /></RequireAuth>}/>
+        <Route path="/create_quiz" element={<RequireAuth><AddQuizPage /></RequireAuth>}/>
+
 
       </Routes>
     </Router>
