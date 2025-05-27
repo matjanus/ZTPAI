@@ -8,7 +8,9 @@ export default function MainPage() {
   return (
     <div className="main-page">
         <Navbar />
-        <RecentQuizzes />
+        <div className="recent-quizzes">
+            <RecentQuizzes />
+        </div>
     </div>
   );
 }
