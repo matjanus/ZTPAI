@@ -1,13 +1,14 @@
-.recent-quizzes {
-  max-width: 50%;
+.quizzes {
   margin: auto;
   font-family: sans-serif;
+  max-width: 50%;
 }
 
 .quiz-list {
   border: 1px solid #ccc;
   border-radius: 6px;
   overflow: hidden;
+  margin: auto;
 }
 
 h3{
@@ -18,7 +19,7 @@ h3{
   display: flex;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  transition: background 0.4s;
+  transition: background-color 0.4s;
 }
 
 .quiz-item:nth-child(odd) {
