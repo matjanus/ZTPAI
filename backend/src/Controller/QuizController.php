@@ -2,9 +2,13 @@
 namespace App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Psr\Log\LoggerInterface;
 use OpenApi\Attributes as OA;
+use App\Service\QuizService;
+use App\Entity\User;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 
 class QuizController extends AbstractController
@@ -125,5 +129,45 @@ class QuizController extends AbstractController
             return $this->json(['error' => 'No quiz found'], 404);
         }
         return $this->json($quizzes);
+    }
+
+
+    #[Route('/api/user/last-quizzes', name: 'user_last_quizzes', methods: ['GET'])]
+    public function lastQuizzes(
+        #[CurrentUser] User $user,
+        QuizService $quizService,
+        Request $request
+    ): JsonResponse {
+        $page = max(1, (int) $request->query->get('page', 1));
+        $limit = 10;
+
+        $quizzes = $quizService->getLastPlayedQuizzesPaginated($user, $page, $limit);
+
+        return $this->json($quizzes, 200, [], ['groups' => 'quiz:read']);
+    }
+
+    #[Route('/api/create_quiz', name: 'create_quiz', methods: ['POST'])]
+    public function create(
+        Request $request,
+        QuizService $quizService,
+        #[CurrentUser] User $user
+    ): JsonResponse {
+        $data = json_decode($request->getContent(), true);
+        $title = $data['title'] ?? '';
+        $accessName = $data['access'] ?? '';
+        $vocabulary = $data['vocabulary'] ?? [];
+
+        try {
+            $quiz = $quizService->createQuiz($title, $accessName, $vocabulary, $user);
+
+            return $this->json([
+                'message' => 'Quiz created successfully.',
+                'title' => $quiz->getQuizName()
+            ], 201);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 }
