@@ -7,7 +7,9 @@ use App\Entity\QuizVocabulary;
 use App\Entity\Quiz;
 use App\Repository\UserPlayRepository;
 use App\Repository\AccessRepository;
+use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 
 class QuizService
@@ -17,7 +19,9 @@ class QuizService
     public function __construct(
         UserPlayRepository $userPlayRepository,
         private EntityManagerInterface $em,
-        private AccessRepository $accessRepository)
+        private AccessRepository $accessRepository,
+        private QuizRepository $quizRepository
+        )
     {
         $this->userPlayRepository = $userPlayRepository;
     }
@@ -65,5 +69,11 @@ class QuizService
         $this->em->flush();
 
         return $quiz;
+    }
+
+
+    public function getPublicQuizzesByUser(int $userId, int $page = 1, int $limit = 10): array
+    {
+        return $this->quizRepository->findPublicQuizzesByUserPaginated($userId, $page, $limit);
     }
 }

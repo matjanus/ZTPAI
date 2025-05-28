@@ -78,34 +78,6 @@ class QuizController extends AbstractController
         return $this->json($quizzes[$id]);
         }
 
-        #[Route('/api/users_quizzes/{id}', name: 'get_users_quizzes', methods: ['GET'])]
-        public function getUsersQuizzes(int $id): JsonResponse
-        {
-        $quizzes = [
-            [
-                'quiz_name'  => 'Zwierzeta',
-                'quiz_id'=> "124574dfdasghhds",
-                'owner_id' => 1,
-                'access'=> 3
-            ],
-            [
-                'quiz_name'  => 'dom',
-                'quiz_id'=> "a24n74dfdfjgh3ds",
-                'owner_id' => 2,
-                'access'=> 3
-            ]
-        ];
-
-        $result = array_filter($quizzes, function($quiz) use ($id) {
-            return $quiz["owner_id"] === $id;
-        });
-
-        if (empty($result)) {
-            return $this->json(['error' => 'No quiz found'], 404);
-        }
-        return $this->json($result);
-    }
-
     #[Route('/api/last_played', name: 'get_last_played_quizzes', methods: ['GET'])]
     public function getLastPlayedQuizzes(LoggerInterface $logger): JsonResponse
     {
@@ -169,5 +141,24 @@ class QuizController extends AbstractController
                 'error' => $e->getMessage()
             ], 400);
         }
+    }
+
+    #[Route('/api/user/{id}/quizzes', name: 'get_user_quizzes', methods: ['GET'])]
+    public function getUserPublicQuizzes(
+        int $id,
+        QuizService $quizService,
+        Request $request
+    ): JsonResponse {
+        $page = max(1, (int)$request->query->get('page', 1));
+        $limit = 10;
+
+        $quizzes = $quizService->getPublicQuizzesByUser($id, $page, $limit);
+
+        $data = array_map(fn($quiz) => [
+            'id' => $quiz->getId(),
+            'quizName' => $quiz->getQuizName(),
+        ], $quizzes);
+
+        return $this->json($data, 200);
     }
 }

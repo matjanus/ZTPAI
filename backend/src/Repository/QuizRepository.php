@@ -40,4 +40,22 @@ class QuizRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+public function findPublicQuizzesByUserPaginated(int $userId, int $page = 1, int $limit = 10): array
+{
+    $offset = ($page - 1) * $limit;
+
+    return $this->createQueryBuilder('q')
+        ->join('q.owner', 'o')
+        ->join('q.access', 'a')
+        ->where('o.id = :userId')
+        ->andWhere('a.accessName = :public')
+        ->setParameter('userId', $userId)
+        ->setParameter('public', 'Public')
+        ->orderBy('q.id', 'DESC')
+        ->setFirstResult($offset)
+        ->setMaxResults($limit)
+        ->getQuery()
+        ->getResult();
+}
 }
