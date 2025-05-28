@@ -67,9 +67,9 @@ export default function QuizForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="quiz-form">
+    <form onSubmit={handleSubmit}>
       <h2>New Quiz</h2>
-        <div className='quiz-head'>
+        <div className='form-head'>
             <input
                 className="quiz-title-input"
                 type="text"
@@ -90,7 +90,7 @@ export default function QuizForm() {
             </select>
         </div>
       {pairs.map((pair, idx) => (
-        <div className="word-pair" key={idx}>
+        <div className="input-pair" key={idx}>
           <input
             type="text"
             placeholder="ToTranslate"
