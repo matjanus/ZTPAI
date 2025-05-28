@@ -1,44 +1,68 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import UserInfo from '../components/UserInfo';
-import UserQuizList from '../components/lists/QuizzesList';
+import ErrorMessage from '../components/ErrorMessage';
+import UserCard from '../components/UserCard';
+import UserQuizzesList from '../components/lists/UserQuizzesList';
+import './UserProfilePage.css';
 
 export default function UserProfilePage() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  const [quizzes, setQuizzes] = useState([]);
-  const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [userExists, setUserExists] = useState(true);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/user/${id}`)
-      .then((res) => {
-        setUser(res.data);
-        setNotFound(false);
-      })
-      .catch((err) => {
-        if (err.response?.status === 404) {
-          setNotFound(true);
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.status === 404) {
+          setUserExists(false);
+          return;
         }
-      })
-      .finally(() => setLoading(false));
 
-    axios.get(`http://127.0.0.1:8000/api/user/${id}/quizzes`)
-      .then((res) => setQuizzes(res.data))
-      .catch(console.error);
-  }, [id]);
+        if (!res.ok) throw new Error('Data download error');
 
-  if (notFound) return <p style={{ padding: '2rem', color: 'red' }}>Użytkownik nie został znaleziony.</p>;
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+        setUserExists(false);
+      }
+    };
+
+    fetchUser();
+  }, [id, token]);
+
+  if (!userExists) {
+    return (
+      <div className='user-profile-page'>
+        <Navbar />
+        <ErrorMessage message="User not found" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className='user-profile-page'>
+        <Navbar />
+      </div>
+    );
+  }
 
   return (
-    <>
+    <div className='user-profile-page'>
       <Navbar />
-      <div>
-        <UserInfo username={user.username} />
-        <UserQuizList quizzes={quizzes} />
+      <div className="user-profile-container">
+        <UserCard username={user.username} />
+        <UserQuizzesList userId={id} token={token} />
       </div>
-    </>
+    </div>
   );
 }
