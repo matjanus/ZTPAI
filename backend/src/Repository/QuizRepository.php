@@ -73,4 +73,13 @@ class QuizRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneById(int $id): ?Quiz
+{
+    return $this->createQueryBuilder('q')
+        ->where('q.id = :id')
+        ->setParameter('id', $id)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
 }

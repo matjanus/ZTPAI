@@ -40,6 +40,12 @@ class Quiz
     #[ORM\OneToMany(targetEntity: UserRating::class, mappedBy: 'quiz', orphanRemoval: true)]
     private Collection $userRatings;
 
+    /**
+     * @var Collection<int, UserPlay>
+     */
+    #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'quiz', orphanRemoval: true)]
+    private Collection $userPlay;
+
     public function __construct()
     {
         $this->quizVocabularies = new ArrayCollection();

@@ -181,4 +181,18 @@ class QuizController extends AbstractController
 
         return $this->json($data);
     }
+
+    #[Route('/api/quiz/{id}', name: 'delete_quiz', methods: ['DELETE'])]
+    public function deleteQuiz(
+        int $id,
+        #[CurrentUser] User $user,
+        QuizService $quizService
+    ): JsonResponse {
+        try {
+            $quizService->deleteQuiz($id, $user);
+            return new JsonResponse(null, 204);
+        } catch (\RuntimeException $e) {
+            return $this->json(['error' => $e->getMessage()], $e->getCode() ?: 400);
+        }
+    }
 }

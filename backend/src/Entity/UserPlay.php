@@ -22,7 +22,7 @@ class UserPlay
     private ?User $player = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Quiz $quiz = null;
 
     public function getId(): ?int

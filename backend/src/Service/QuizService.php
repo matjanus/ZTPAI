@@ -82,4 +82,20 @@ class QuizService
         return $this->quizRepository->findOwnerQuizzesPaginated($user, $page, $limit);
     }
 
+    public function deleteQuiz(int $quizId, User $user): void
+    {
+        $quiz = $this->quizRepository->findOneById($quizId);
+
+        if (!$quiz) {
+            throw new \RuntimeException('Quiz not found', 404);
+        }
+
+        if ($quiz->getOwner()->getId() !== $user->getId()) {
+            throw new \RuntimeException('Access denied. You do not own this quiz.', 403);
+        }
+
+        $this->em->remove($quiz);
+        $this->em->flush();
+    }
+
 }   
