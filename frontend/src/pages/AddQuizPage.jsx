@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import QuizForm from '../components/QuizForm';
+import QuizForm from '../components/forms/QuizForm';
 import './AddQuizPage.css';
 
 export default function AddQuizPage() {
