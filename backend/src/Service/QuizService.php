@@ -76,4 +76,10 @@ class QuizService
     {
         return $this->quizRepository->findPublicQuizzesByUserPaginated($userId, $page, $limit);
     }
-}
+
+    public function getUserQuizzes(User $user, int $page = 1, int $limit = 10): array
+    {
+        return $this->quizRepository->findOwnerQuizzesPaginated($user, $page, $limit);
+    }
+
+}   

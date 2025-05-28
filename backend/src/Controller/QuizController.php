@@ -161,4 +161,24 @@ class QuizController extends AbstractController
 
         return $this->json($data, 200);
     }
+
+    #[Route('/api/user/my-quizzes', name: 'user_my_quizzes', methods: ['GET'])]
+    public function getMyQuizzes(
+        #[CurrentUser] User $user,
+        QuizService $quizService,
+        Request $request
+    ): JsonResponse {
+        $page = max(1, (int) $request->query->get('page', 1));
+        $limit = 10;
+
+        $quizzes = $quizService->getUserQuizzes($user, $page, $limit);
+
+        $data = array_map(fn($quiz) => [
+            'id' => $quiz->getId(),
+            'quizName' => $quiz->getQuizName(),
+            'accsess' => $quiz->getAccess()
+        ], $quizzes);
+
+        return $this->json($data);
+    }
 }
