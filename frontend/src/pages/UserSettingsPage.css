@@ -1,0 +1,10 @@
+.user-settings-page{
+    height: 100vh;
+    width: 100vw;
+    font-family: sans-serif;
+    background-color: #f5f7fa;
+}
+
+.user-profile-container{
+    overflow-y: auto;
+}

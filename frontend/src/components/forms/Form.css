@@ -1,7 +1,10 @@
-form{
+.form-container{
   width: 40%;
   margin: 2rem auto;
   padding: 1rem;
+}
+
+form{
   background-color: #f9f9f9;
   border-radius: 8px;
 }
@@ -17,7 +20,7 @@ input{
     margin-bottom: 1rem;
 }
 
-form h2 {
+.form-container h2 {
   text-align: center;
   margin-bottom: 1rem;
   font-weight: bold;
@@ -63,6 +66,25 @@ form h2 {
 }
 
 .submit-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.del-btn{
+  background-color: #dc3545;
+  border: 0;
+  color: white;
+  display: block;
+  margin: 1rem auto 0;
+  padding: 0.6rem 1.5rem;
+  font-weight: bold;
+}
+
+.del-btn:hover{
+  background-color: #a71d2a;
+}
+
+.del-btn:focus {
   outline: none;
   box-shadow: none;
 }

@@ -8,7 +8,8 @@ import RequireAuth from './components/RequireAuth';
 import UserProfilePage from "./pages/UserProfilePage";
 import MyQuizzesPage from  "./pages/MyQuizzesPage";
 import AddQuizPage from  "./pages/AddQuizPage";
-
+import UserSettingsPage from  "./pages/UserSettingsPage";
+UserSettingsPage
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
         <Route path="/user/:id" element={<RequireAuth><UserProfilePage /></RequireAuth>}/>
         <Route path="/quizzes" element={<RequireAuth><MyQuizzesPage /></RequireAuth>}/>
         <Route path="/create_quiz" element={<RequireAuth><AddQuizPage /></RequireAuth>}/>
+        <Route path="/profile" element={<RequireAuth><UserSettingsPage /></RequireAuth>}/>
         <Route path="*" element={<RequireAuth><NotFoundPage /></RequireAuth>} />
 
       </Routes>

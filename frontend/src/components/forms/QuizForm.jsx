@@ -67,7 +67,7 @@ export default function QuizForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='form-container'>
       <h2>New Quiz</h2>
         <div className='form-head'>
             <input
