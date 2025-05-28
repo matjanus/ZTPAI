@@ -55,14 +55,14 @@ export default function QuizForm() {
       });
 
       if (!res.ok) {
-        throw new Error('Błąd podczas zapisu quizu.');
+        throw new Error('Error while saving the quiz.');
       }
 
       const result = await res.json();
-      alert(`Quiz "${result.title}" został dodany!`);
+      alert(`Quiz "${result.title}" was added!`);
     } catch (err) {
       console.error(err);
-      alert('Nie udało się dodać quizu.');
+      alert('Failed to add quiz.');
     }
   };
 
