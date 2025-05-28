@@ -3,9 +3,11 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Entity\Role;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Validator\PasswordValidator;
 
 
 class UserService
@@ -42,6 +44,11 @@ class UserService
 
     public function changePassword(User $user, string $oldPassword, string $newPassword): void
     {
+
+        if (!PasswordValidator::isValid($newPassword)) {
+            throw new \InvalidArgumentException(PasswordValidator::getPasswordInvalidMessage());
+        }
+
         if (!$this->passwordHasher->isPasswordValid($user, $oldPassword)) {
             throw new \RuntimeException('The old password is invalid.');
         }
@@ -51,5 +58,23 @@ class UserService
         );
 
         $this->em->flush();
+    }
+
+    public function registerUser(string $username, string $password, string $email, Role $role): User
+    {
+
+        if (!PasswordValidator::isValid($password)) {
+            throw new \InvalidArgumentException(PasswordValidator::getPasswordInvalidMessage());
+        }
+
+        if ($this->userRepository->findOneBy(['email' => $email])) {
+            throw new \InvalidArgumentException('Email is already taken.');
+        }
+
+        if ($this->userRepository->findOneBy(['username' => $username])) {
+            throw new \InvalidArgumentException('Username is already taken.');
+        }
+
+        return $this->userRepository->createUser($username, $password, $email, $role, $this->passwordHasher);
     }
 }
