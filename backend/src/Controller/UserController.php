@@ -3,6 +3,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\UserService;
 
 class UserController extends AbstractController
 {
@@ -31,8 +32,19 @@ class UserController extends AbstractController
         return $this->json([
             'id' => $user->getId(),
             'username' => $user->getUserIdentifier(),
-            'email' => $user->getEmail(),
         ]);
+    }
+
+    #[Route('/api/user/{id}', name: 'get_user_info', methods: ['GET'])]
+    public function getUserInfo(int $id, UserService $userService): JsonResponse
+    {
+        try {
+            $username = $userService->getUsername($id);
+
+            return $this->json(['username' => $username]);
+        } catch (\InvalidArgumentException $e) {
+            return $this->json(['error' => $e->getMessage()], 404);
+        }
     }
 
 
