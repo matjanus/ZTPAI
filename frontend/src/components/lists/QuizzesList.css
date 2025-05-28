@@ -72,3 +72,8 @@ h3{
 .load-more-button:hover{
   background-color: #0056b3;
 }
+
+.load-more-button:focus {
+  outline: none;
+  box-shadow: none;
+}
