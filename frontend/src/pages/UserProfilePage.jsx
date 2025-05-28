@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import ErrorMessage from '../components/ErrorMessage';
 import UserCard from '../components/UserCard';
 import UserQuizzesList from '../components/lists/UserQuizzesList';
+import useDynamicBodyHeight from '../hooks/useDynamicBodyHeight';
 import './UserProfilePage.css';
 
 export default function UserProfilePage() {
@@ -56,10 +57,17 @@ export default function UserProfilePage() {
     );
   }
 
+  const navbarRef = useRef(null);
+  const bodyRef = useRef(null);
+
+  useDynamicBodyHeight(navbarRef, bodyRef);
+
   return (
     <div className='user-profile-page'>
-      <Navbar />
-      <div className="user-profile-container">
+      <div ref={navbarRef}>
+        <Navbar />
+      </div>
+      <div className="user-profile-container" ref={bodyRef}>
         <UserCard username={user.username} />
         <UserQuizzesList userId={id} token={token} />
       </div>

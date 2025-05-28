@@ -15,4 +15,8 @@
     margin-top: 1rem;
 }
 
+.myquizzes-body{
+    overflow-y: auto;
+}
+
 

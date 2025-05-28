@@ -4,3 +4,7 @@
     font-family: sans-serif;
     background-color: #f5f7fa;
 }
+
+.user-profile-container{
+    overflow-y: auto;
+}
