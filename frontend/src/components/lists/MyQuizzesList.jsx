@@ -66,12 +66,12 @@ export default function MyCourseList() {
             </div>
           </div>
         ))}
-        {hasMore && (
-          <button className="load-more-button" onClick={handleLoadMore}>
-            ➕ Get more
-          </button>
-        )}
       </div>
+          {hasMore && (
+            <button className="load-more-button" onClick={handleLoadMore}>
+              Show more
+            </button>
+        )}
     </div>
   );
 }

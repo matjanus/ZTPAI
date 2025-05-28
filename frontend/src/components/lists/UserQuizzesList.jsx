@@ -30,6 +30,10 @@ export default function UserQuizzesList({ userId, token }) {
     loadQuizzes();
   }, [page]);
 
+  const handleLoadMore = () => {
+    setPage((p) => p + 1);
+  };
+
   return (
     <div className="quizzes">
       <h3>Public quizzes</h3>
@@ -40,15 +44,15 @@ export default function UserQuizzesList({ userId, token }) {
             key={quiz.id}
           >
             <Link to={`/quiz/${quiz.id}`} className="quiz-title">
-              {quiz.quizName}
+              {quiz.quizName}   
             </Link>
           </div>
         ))}
       </div>
       {hasMore && (
-        <button className="load-more-button" onClick={() => setPage((p) => p + 1)}>
-          Get more
-        </button>
+          <button className="load-more-button" onClick={handleLoadMore}>
+            Show more
+          </button>
       )}
     </div>
   );

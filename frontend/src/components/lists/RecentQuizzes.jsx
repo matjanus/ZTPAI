@@ -57,9 +57,9 @@ export default function RecentQuizzes() {
         ))}
       </div>
       {hasMore && (
-        <button className="load-more-button" onClick={handleLoadMore}>
-          ➕ Załaduj więcej
-        </button>
+          <button className="load-more-button" onClick={handleLoadMore}>
+            Show more
+          </button>
       )}
     </div>
   );
