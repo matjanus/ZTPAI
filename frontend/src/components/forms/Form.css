@@ -70,7 +70,8 @@ input{
   box-shadow: none;
 }
 
-.del-btn{
+.del-profile-btn{
+  display: block;
   background-color: #dc3545;
   border: 0;
   color: white;
@@ -79,11 +80,11 @@ input{
   font-weight: bold;
 }
 
-.del-btn:hover{
+.del-profile-btn:hover{
   background-color: #a71d2a;
 }
 
-.del-btn:focus {
+.del-profile-btn:focus {
   outline: none;
   box-shadow: none;
 }

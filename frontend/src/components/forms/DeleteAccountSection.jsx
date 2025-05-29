@@ -25,7 +25,7 @@ export default function DeleteAccountSection() {
   return (
     <div className="form-container">
       <h2>Delete account</h2>
-      <button onClick={handleDelete} className="del-btn">
+      <button onClick={handleDelete} className="del-profile-btn">
         Delete
       </button>
     </div>
