@@ -33,11 +33,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Role $role = null;
 
-    /**
-     * @var Collection<int, Session>
-     */
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'idUser')]
-    private Collection $idUser;
 
     /**
      * @var Collection<int, Quiz>
@@ -51,11 +46,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'player', orphanRemoval: true)]
     private Collection $userPlays;
 
+    /**
+     * @var Collection<int, FavouriteQuiz>
+     */
+    #[ORM\OneToMany(targetEntity: FavouriteQuiz::class, mappedBy: 'Patron', orphanRemoval: true)]
+    private Collection $favouriteQuizzes;
+
     public function __construct()
     {
         $this->idUser = new ArrayCollection();
         $this->quizzes = new ArrayCollection();
         $this->userPlays = new ArrayCollection();
+        $this->favouriteQuizzes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,35 +113,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Session>
-     */
     public function getIdUser(): Collection
     {
         return $this->idUser;
     }
 
-    public function addIdUser(Session $idUser): static
-    {
-        if (!$this->idUser->contains($idUser)) {
-            $this->idUser->add($idUser);
-            $idUser->setIdUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdUser(Session $idUser): static
-    {
-        if ($this->idUser->removeElement($idUser)) {
-            // set the owning side to null (unless already changed)
-            if ($idUser->getIdUser() === $this) {
-                $idUser->setIdUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getRoles(): array
     {
@@ -210,6 +188,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userPlay->getPlayer() === $this) {
                 $userPlay->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavouriteQuiz>
+     */
+    public function getFavouriteQuizzes(): Collection
+    {
+        return $this->favouriteQuizzes;
+    }
+
+    public function addFavouriteQuiz(FavouriteQuiz $favouriteQuiz): static
+    {
+        if (!$this->favouriteQuizzes->contains($favouriteQuiz)) {
+            $this->favouriteQuizzes->add($favouriteQuiz);
+            $favouriteQuiz->setPatron($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavouriteQuiz(FavouriteQuiz $favouriteQuiz): static
+    {
+        if ($this->favouriteQuizzes->removeElement($favouriteQuiz)) {
+            // set the owning side to null (unless already changed)
+            if ($favouriteQuiz->getPatron() === $this) {
+                $favouriteQuiz->setPatron(null);
             }
         }
 

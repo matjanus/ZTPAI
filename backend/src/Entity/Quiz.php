@@ -35,12 +35,6 @@ class Quiz
     private Collection $quizVocabularies;
 
     /**
-     * @var Collection<int, UserRating>
-     */
-    #[ORM\OneToMany(targetEntity: UserRating::class, mappedBy: 'quiz', orphanRemoval: true)]
-    private Collection $userRatings;
-
-    /**
      * @var Collection<int, UserPlay>
      */
     #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'quiz', orphanRemoval: true)]
@@ -49,7 +43,6 @@ class Quiz
     public function __construct()
     {
         $this->quizVocabularies = new ArrayCollection();
-        $this->userRatings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,33 +116,5 @@ class Quiz
         return $this;
     }
 
-    /**
-     * @return Collection<int, UserRating>
-     */
-    public function getUserRatings(): Collection
-    {
-        return $this->userRatings;
-    }
 
-    public function addUserRating(UserRating $userRating): static
-    {
-        if (!$this->userRatings->contains($userRating)) {
-            $this->userRatings->add($userRating);
-            $userRating->setQuiz($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserRating(UserRating $userRating): static
-    {
-        if ($this->userRatings->removeElement($userRating)) {
-            // set the owning side to null (unless already changed)
-            if ($userRating->getQuiz() === $this) {
-                $userRating->setQuiz(null);
-            }
-        }
-
-        return $this;
-    }
 }
