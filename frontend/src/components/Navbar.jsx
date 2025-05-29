@@ -14,6 +14,7 @@ export default function Navbar() {
       <button onClick={() => navigate('/')}>Bezili</button>
       <button onClick={() => navigate('/quizzes')}>Quizzes</button>
       <button onClick={() => navigate('/profile')}>Profile</button>
+      <button onClick={() => navigate('/favourite')}>Favourite</button>
       <button onClick={handleLogout}>LogOut</button>
     </nav>
   );

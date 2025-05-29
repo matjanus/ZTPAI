@@ -10,9 +10,10 @@ import MyQuizzesPage from  "./pages/MyQuizzesPage";
 import AddQuizPage from  "./pages/AddQuizPage";
 import UserSettingsPage from  "./pages/UserSettingsPage";
 import QuizPage from  "./pages/QuizPage";
+import FlashcardGamePage from  "./pages/FlashcardGamePage";
+import FavouriteQuizzesPage from  "./pages/FavouriteQuizzesPage";
 
 
-UserSettingsPage
 function App() {
   return (
     <Router>
@@ -26,6 +27,9 @@ function App() {
         <Route path="/quizzes" element={<RequireAuth><MyQuizzesPage /></RequireAuth>}/>
         <Route path="/create_quiz" element={<RequireAuth><AddQuizPage /></RequireAuth>}/>
         <Route path="/profile" element={<RequireAuth><UserSettingsPage /></RequireAuth>}/>
+        <Route path="/favourite" element={<RequireAuth><FavouriteQuizzesPage /></RequireAuth>}/>
+        <Route path="/quiz/:id/flashcards" element={<RequireAuth><FlashcardGamePage /></RequireAuth>}/>
+        
         <Route path="*" element={<RequireAuth><NotFoundPage /></RequireAuth>} />
 
       </Routes>

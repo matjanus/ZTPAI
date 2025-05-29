@@ -45,7 +45,7 @@ export default function QuizPage() {
       {error ? (
         <ErrorMessage code={error.code} message={error.message} />
       ) : (
-        quiz && <QuizDetails title={quiz.title} quizId={quiz.id} />
+        quiz && <QuizDetails title={quiz.title} quizId={id} />
       )}
     </div>
   );
