@@ -17,6 +17,7 @@ class QuizController extends AbstractController
     #[OA\Get(
         path: "/api/quiz/{id}",
         summary: "Get quiz title by ID",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         parameters: [
             new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer"))
@@ -63,6 +64,7 @@ class QuizController extends AbstractController
     #[OA\Get(
         path: "/api/quiz/{id}/vocabulary",
         summary: "Get vocabulary of a quiz",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         parameters: [
             new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer"))
@@ -107,6 +109,7 @@ class QuizController extends AbstractController
     #[OA\Get(
         path: "/api/user/last-quizzes",
         summary: "Get last played quizzes of the current user",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         parameters: [
             new OA\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer", default: 1))
@@ -137,6 +140,7 @@ class QuizController extends AbstractController
     #[OA\Post(
         path: "/api/create_quiz",
         summary: "Create a new quiz",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         requestBody: new OA\RequestBody(
             required: true,
@@ -203,6 +207,7 @@ class QuizController extends AbstractController
     #[OA\Get(
             path: "/api/user/{id}/quizzes",
             summary: "Get public quizzes by user ID",
+            security: [ ['bearerAuth' => []] ], 
             tags: ["Quiz"],
             parameters: [
                 new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer")),
@@ -243,6 +248,7 @@ class QuizController extends AbstractController
     #[OA\Get(
         path: "/api/user/my-quizzes",
         summary: "Get quizzes created by current user",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         parameters: [
             new OA\Parameter(name: "page", in: "query", required: false, schema: new OA\Schema(type: "integer", default: 1))
@@ -284,6 +290,7 @@ class QuizController extends AbstractController
     #[OA\Delete(
         path: "/api/quiz/{id}",
         summary: "Delete a quiz by ID",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Quiz"],
         parameters: [
             new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer"))

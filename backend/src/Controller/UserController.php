@@ -15,6 +15,7 @@ class UserController extends AbstractController
     #[OA\Get(
         path: "/api/me",
         summary: "Used to check if user has valid token JWT",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["User"],
         responses: [
             new OA\Response(
@@ -59,6 +60,7 @@ class UserController extends AbstractController
     #[OA\Get(
         path: "/api/user/{id}",
         summary: "Get username of user by ID",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["User"],
         parameters: [
             new OA\Parameter(
@@ -106,6 +108,7 @@ class UserController extends AbstractController
     #[OA\Delete(
         path: "/api/user/delete",
         summary: "Delete current logged-in user",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["User"],
         responses: [
             new OA\Response(

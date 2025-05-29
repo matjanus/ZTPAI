@@ -25,6 +25,7 @@ class SecurityController extends AbstractController
     #[OA\Post(
         path: "/api/register",
         summary: "Register a new user",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Security"],
         requestBody: new OA\RequestBody(
             required: true,
@@ -113,6 +114,7 @@ class SecurityController extends AbstractController
     #[OA\Post(
         path: "/api/user/change-password",
         summary: "Change user's password",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Security"],
         requestBody: new OA\RequestBody(
             required: true,

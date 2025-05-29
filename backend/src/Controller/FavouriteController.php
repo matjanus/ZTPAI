@@ -12,14 +12,17 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OpenApi\Attributes as OA;
 
+
 #[Route('/api/favourites')]
 class FavouriteController extends AbstractController
 {
     public function __construct(private FavouriteService $favouriteService) {}
 
+
     #[OA\Get(
         path: "/api/favourites",
         summary: "Get all favourite quizzes for the current user",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Favourites"],
         parameters: [
             new OA\Parameter(
@@ -68,6 +71,7 @@ class FavouriteController extends AbstractController
     #[OA\Post(
         path: "/api/favourites/{id}",
         summary: "Add quiz to favourites",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Favourites"],
         parameters: [
             new OA\Parameter(
@@ -114,6 +118,7 @@ class FavouriteController extends AbstractController
     #[OA\Delete(
         path: "/api/favourites/{id}",
         summary: "Remove quiz from favourites",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Favourites"],
         parameters: [
             new OA\Parameter(
@@ -155,6 +160,7 @@ class FavouriteController extends AbstractController
     #[OA\Get(
         path: "/api/favourites/{id}/check",
         summary: "Check if quiz is favourite",
+        security: [ ['bearerAuth' => []] ], 
         tags: ["Favourites"],
         parameters: [
             new OA\Parameter(
