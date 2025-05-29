@@ -9,6 +9,9 @@ import UserProfilePage from "./pages/UserProfilePage";
 import MyQuizzesPage from  "./pages/MyQuizzesPage";
 import AddQuizPage from  "./pages/AddQuizPage";
 import UserSettingsPage from  "./pages/UserSettingsPage";
+import QuizPage from  "./pages/QuizPage";
+
+
 UserSettingsPage
 function App() {
   return (
@@ -19,6 +22,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<RequireAuth><MainPage /></RequireAuth>}/>
         <Route path="/user/:id" element={<RequireAuth><UserProfilePage /></RequireAuth>}/>
+        <Route path="/quiz/:id" element={<RequireAuth><QuizPage /></RequireAuth>}/>
         <Route path="/quizzes" element={<RequireAuth><MyQuizzesPage /></RequireAuth>}/>
         <Route path="/create_quiz" element={<RequireAuth><AddQuizPage /></RequireAuth>}/>
         <Route path="/profile" element={<RequireAuth><UserSettingsPage /></RequireAuth>}/>

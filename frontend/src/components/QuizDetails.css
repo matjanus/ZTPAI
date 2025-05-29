@@ -1,0 +1,8 @@
+.quiz-details {
+  min-height: 100vh;
+  background-color: #eef6ff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2rem;
+}
