@@ -9,6 +9,8 @@ use App\Repository\UserPlayRepository;
 use App\Repository\AccessRepository;
 use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 
@@ -96,6 +98,54 @@ class QuizService
 
         $this->em->remove($quiz);
         $this->em->flush();
+    }
+
+
+    public function getQuizTitle(int $quizId, User $currentUser): string
+    {
+        $res = $this->quizRepository->findById($quizId);
+
+        if (!$res) {
+            throw new NotFoundHttpException("Quiz not found.");
+        }
+
+        $quiz = $res[0];
+
+        if (
+            $quiz->getAccess()->getAccessName() === 'Private' &&
+            $quiz->getOwner() !== $currentUser
+        ) {
+            throw new AccessDeniedHttpException("You do not have access to this quiz.");
+        }
+
+        return $quiz->getQuizName();
+    }
+
+    public function getQuizVocabulary(int $quizId, User $currentUser): array
+    {
+        $res = $this->quizRepository->findById($quizId);
+
+        if (!$res) {
+            throw new NotFoundHttpException("Quiz not found.");
+        }
+
+        $quiz = $res[0];
+
+        if (
+            $quiz->getAccess()->getAccessName() === 'Private' &&
+            $quiz->getOwner() !== $currentUser
+        ) {
+            throw new AccessDeniedHttpException("You do not have access to this quiz.");
+        }
+
+        $vocabularies = $quiz->getQuizVocabularies();
+
+        return array_map(function ($v) {
+            return [
+                'word' => $v->getWord(),
+                'translation' => $v->getTranslation(),
+            ];
+        }, $vocabularies->toArray());
     }
 
 }   
