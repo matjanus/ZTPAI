@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\User;
 use App\Entity\QuizVocabulary;
 use App\Entity\Quiz;
+use App\Entity\UserPlay;
 use App\Repository\UserPlayRepository;
 use App\Repository\AccessRepository;
 use App\Repository\QuizRepository;
@@ -101,7 +102,7 @@ class QuizService
     }
 
 
-    public function getQuizTitle(int $quizId, User $currentUser): string
+    public function getQuizTitle(int $quizId, User $user): string
     {
         $res = $this->quizRepository->findById($quizId);
 
@@ -113,7 +114,7 @@ class QuizService
 
         if (
             $quiz->getAccess()->getAccessName() === 'Private' &&
-            $quiz->getOwner() !== $currentUser
+            $quiz->getOwner() !== $user
         ) {
             throw new AccessDeniedHttpException("You do not have access to this quiz.");
         }
@@ -121,7 +122,7 @@ class QuizService
         return $quiz->getQuizName();
     }
 
-    public function getQuizVocabulary(int $quizId, User $currentUser): array
+    public function getQuizVocabulary(int $quizId, User $user): array
     {
         $res = $this->quizRepository->findById($quizId);
 
@@ -133,10 +134,18 @@ class QuizService
 
         if (
             $quiz->getAccess()->getAccessName() === 'Private' &&
-            $quiz->getOwner() !== $currentUser
+            $quiz->getOwner() !== $user
         ) {
             throw new AccessDeniedHttpException("You do not have access to this quiz.");
         }
+
+        $lastPlayed = new UserPlay();
+        $lastPlayed->setPlayer($user);
+        $lastPlayed->setQuiz($quiz);
+        $lastPlayed->setDate(new \DateTimeImmutable());
+
+        $this->em->persist($lastPlayed);
+        $this->em->flush();
 
         $vocabularies = $quiz->getQuizVocabularies();
 

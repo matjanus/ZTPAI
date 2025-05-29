@@ -2,8 +2,17 @@ nelmio_api_doc:
     documentation:
         info:
             title: My App
-            description: This is an awesome app!
+            description: My documentation
             version: 1.0.0
+        tags:
+            - name: 'User'
+              description: 'Endpoints related to user information'
+            - name: 'Quiz'
+              description: 'Endpoints related to quizzes'
+            - name: 'Favourites'
+              description: 'Favourite quizzes for user'
+            - name: 'Security'
+              description: 'Endpoints related to authorization'
         securityDefinitions:
             Bearer:
                 type: "apiKey"
