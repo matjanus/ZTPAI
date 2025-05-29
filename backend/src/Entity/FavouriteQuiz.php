@@ -6,6 +6,7 @@ use App\Repository\FavouriteQuizRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FavouriteQuizRepository::class)]
+#[ORM\Index(name: 'idx_patron', columns: ['patron_id'])]
 class FavouriteQuiz
 {
     #[ORM\Id]

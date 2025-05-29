@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizVocabularyRepository::class)]
+#[ORM\Index(name: 'idx_quiz', columns: ['quiz_id'])]
 class QuizVocabulary
 {
     #[ORM\Id]

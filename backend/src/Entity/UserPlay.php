@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserPlayRepository::class)]
+#[ORM\Index(name: 'idx_player', columns: ['player_id'])]
 class UserPlay
 {
     #[ORM\Id]
