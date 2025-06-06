@@ -15,7 +15,7 @@ class FavouriteQuiz
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'favouriteQuizzes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $patron = null;
 
     #[ORM\ManyToOne]

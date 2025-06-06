@@ -14,6 +14,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
         "easycorp/easyadmin-bundle": "^4.24",
+        "gesdinet/jwt-refresh-token-bundle": "dev-master",
         "lexik/jwt-authentication-bundle": "*",
         "nelmio/api-doc-bundle": "^5.0",
         "nelmio/cors-bundle": "^2.5",
@@ -85,6 +86,9 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.62"
+        "phpunit/phpunit": "*",
+        "symfony/browser-kit": "7.2.*",
+        "symfony/maker-bundle": "^1.62",
+        "symfony/phpunit-bridge": "*"
     }
 }
