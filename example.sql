@@ -1,7 +1,7 @@
 INSERT INTO "user" (username, password, role_id, email) VALUES
-('Admin', '$2y$13$I.6qdL/XJHP5y4WBzGkPSOVzizlXfnbPbOuc4wzIPtBjIHerpRuxi', 1, 'admin@admin.pl'),
-('User1', '$2y$13$I.6qdL/XJHP5y4WBzGkPSOVzizlXfnbPbOuc4wzIPtBjIHerpRuxi', 2, 'user1@example.com'),
-('User2', '$2y$13$I.6qdL/XJHP5y4WBzGkPSOVzizlXfnbPbOuc4wzIPtBjIHerpRuxi', 2, 'user2@example.com');
+('admin', '$2y$13$I.6qdL/XJHP5y4WBzGkPSOVzizlXfnbPbOuc4wzIPtBjIHerpRuxi', 1, 'admin@admin.pl'),
+('user1', '$2y$13$I.6qdL/XJHP5y4WBzGkPSOVzizlXfnbPbOuc4wzIPtBjIHerpRuxi', 2, 'user1@example.com'),
+('strong', '$2y$13$OmxC2uPYaa.r.M9APH2LWuEzXIp21RC/GfE.yS95pOkqJVNsKgm3.', 2, 'admin@admin.COM');
 
 INSERT INTO quiz ( quiz_name, owner_id, access_id) VALUES
 ('Zwierzęta', 2, 3),
@@ -29,7 +29,8 @@ INSERT INTO quiz_vocabulary (quiz_id, word, translation) VALUES
 (6, 'nauczyciel', 'teacher'),
 (6, 'uczeń', 'student');
 
-INSERT INTO favourite_quiz (user_id, quiz_id) VALUES
+INSERT INTO favourite_quiz (patron_id, quiz_id) VALUES
+(1, 1),
 (2, 1),
 (2, 2),
 (2, 3),
