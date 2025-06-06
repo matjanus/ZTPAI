@@ -1,5 +1,5 @@
 <?php
-namespace App\EventSubscriber;
+namespace App\ExceptionSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -33,8 +33,9 @@ class ExceptionSubscriber implements EventSubscriberInterface
         ], $statusCode);
 
         $event->setResponse($response);
-    }
+}
 
+    
     private function getDefaultMessage(int $statusCode): string
     {
         return match ($statusCode) {

@@ -17,9 +17,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use OpenApi\Attributes as OA;
 
-
-use Psr\Log\LoggerInterface;
-
 class SecurityController extends AbstractController
 {
     #[OA\Post(

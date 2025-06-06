@@ -4,7 +4,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Psr\Log\LoggerInterface;
 use OpenApi\Attributes as OA;
 use App\Service\QuizService;
 use App\Entity\User;
@@ -159,7 +158,8 @@ class QuizController extends AbstractController
                 content: new OA\JsonContent(
                     properties: [
                         new OA\Property(property: "message", type: "string", example: "Quiz created successfully."),
-                        new OA\Property(property: "title", type: "string", example: "Food Vocabulary")
+                        new OA\Property(property: "title", type: "string", example: "Food Vocabulary"),
+                        new OA\Property(property: "id", type: "int", example: "11")
                     ]
                 )
             ),
@@ -195,7 +195,8 @@ class QuizController extends AbstractController
 
             return $this->json([
                 'message' => 'Quiz created successfully.',
-                'title' => $quiz->getQuizName()
+                'title' => $quiz->getQuizName(),
+                'id' => $quiz->getId()
             ], 201);
         } catch (\InvalidArgumentException $e) {
             return $this->json([
@@ -261,7 +262,7 @@ class QuizController extends AbstractController
                     properties: [
                         new OA\Property(property: "id", type: "integer"),
                         new OA\Property(property: "quizName", type: "string"),
-                        new OA\Property(property: "accsess", type: "string") // typo in property name preserved if used as-is
+                        new OA\Property(property: "access", type: "string")
                     ]
                 ))
             )
@@ -281,7 +282,7 @@ class QuizController extends AbstractController
         $data = array_map(fn($quiz) => [
             'id' => $quiz->getId(),
             'quizName' => $quiz->getQuizName(),
-            'accsess' => $quiz->getAccess()
+            'access' => $quiz->getAccess()
         ], $quizzes);
 
         return $this->json($data);

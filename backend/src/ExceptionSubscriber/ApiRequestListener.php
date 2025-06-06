@@ -1,5 +1,5 @@
 <?php
-namespace App\EventListener;
+namespace App\ExceptionSubscriber;
 
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,9 +18,9 @@ class ApiRequestListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        // Wymuszaj Accept: application/json dla /api/*
         if (str_starts_with($request->getPathInfo(), '/api')) {
             $request->headers->set('Accept', 'application/json');
         }
     }
 }
+

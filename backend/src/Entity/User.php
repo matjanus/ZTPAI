@@ -36,23 +36,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Role $role = null;
 
 
-    /**
-     * @var Collection<int, Quiz>
-     */
-    #[ORM\OneToMany(targetEntity: Quiz::class, mappedBy: 'owner', orphanRemoval: true)]
-    private Collection $quizzes;
+/**
+ * @var Collection<int, Quiz>
+ */
+#[ORM\OneToMany(targetEntity: Quiz::class, mappedBy: 'owner', orphanRemoval: true, cascade: ['remove'])]
+private Collection $quizzes;
 
-    /**
-     * @var Collection<int, UserPlay>
-     */
-    #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'player', orphanRemoval: true)]
-    private Collection $userPlays;
+/**
+ * @var Collection<int, UserPlay>
+ */
+#[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'player', orphanRemoval: true, cascade: ['remove'])]
+private Collection $userPlays;
 
-    /**
-     * @var Collection<int, FavouriteQuiz>
-     */
-    #[ORM\OneToMany(targetEntity: FavouriteQuiz::class, mappedBy: 'Patron', orphanRemoval: true)]
-    private Collection $favouriteQuizzes;
+/**
+ * @var Collection<int, FavouriteQuiz>
+ */
+#[ORM\OneToMany(targetEntity: FavouriteQuiz::class, mappedBy: 'patron', orphanRemoval: true, cascade: ['remove'])]
+private Collection $favouriteQuizzes;
 
     public function __construct()
     {

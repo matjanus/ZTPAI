@@ -21,7 +21,7 @@ class Quiz
     private ?string $quizName = null;
 
     #[ORM\ManyToOne(inversedBy: 'quizzes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $owner = null;
 
     #[ORM\ManyToOne]
@@ -31,13 +31,13 @@ class Quiz
     /**
      * @var Collection<int, QuizVocabulary>
      */
-    #[ORM\OneToMany(targetEntity: QuizVocabulary::class, mappedBy: 'quiz', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: QuizVocabulary::class, mappedBy: 'quiz', orphanRemoval: true, cascade: ['remove'])]
     private Collection $quizVocabularies;
 
     /**
      * @var Collection<int, UserPlay>
      */
-    #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'quiz', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: UserPlay::class, mappedBy: 'quiz', orphanRemoval: true, cascade: ['remove'])]
     private Collection $userPlay;
 
     public function __construct()

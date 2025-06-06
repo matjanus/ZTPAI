@@ -38,9 +38,11 @@ class UserService
 
     public function deleteUser(User $user): void
     {
-        $this->em->remove($user);
-        $this->em->flush();
-    }
+            // $this->em->createQuery('DELETE FROM App\Entity\RefreshToken rt')
+            //     ->execute();
+            $this->em->remove($user);
+            $this->em->flush();
+        }
 
     public function changePassword(User $user, string $oldPassword, string $newPassword): void
     {

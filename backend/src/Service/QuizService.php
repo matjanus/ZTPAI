@@ -114,11 +114,11 @@ class QuizService
 
         if (
             $quiz->getAccess()->getAccessName() === 'Private' &&
-            $quiz->getOwner() !== $user
+            $quiz->getOwner() !== $user &&
+            $user->getRole()->getRoleName() !== 'ADMIN'
         ) {
             throw new AccessDeniedHttpException("You do not have access to this quiz.");
         }
-
         return $quiz->getQuizName();
     }
 
@@ -134,7 +134,8 @@ class QuizService
 
         if (
             $quiz->getAccess()->getAccessName() === 'Private' &&
-            $quiz->getOwner() !== $user
+            $quiz->getOwner() !== $user &&
+            $user->getRole()->getRoleName() !== 'ADMIN'
         ) {
             throw new AccessDeniedHttpException("You do not have access to this quiz.");
         }

@@ -1,12 +1,53 @@
+# security:
+#     password_hashers:
+#         App\Entity\User:
+#             algorithm: auto
+
+#     role_hierarchy:
+#             ROLE_ADMIN: [ROLE_USER]
+#             ROLE_USER: []
+            
+#     providers:
+#         app_user_provider:
+#             entity:
+#                 class: App\Entity\User
+#                 property: username
+
+#     firewalls:
+#         login:
+#             pattern: ^/api/login
+#             stateless: true
+#             provider: app_user_provider
+#             json_login:
+#                 check_path: /api/login_check
+#                 username_path: username
+#                 password_path: password
+#                 success_handler: lexik_jwt_authentication.handler.authentication_success
+#                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+#         api:
+#             pattern: ^/api/
+#             stateless: true
+#             jwt: ~
+
+
+
+#     access_control:
+#         - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+#         - { path: ^/api/doc, roles: PUBLIC_ACCESS }
+#         - { path: ^api/register, roles: PUBLIC_ACCESS }
+#         - { path: ^/api, roles: ROLE_USER }
+
+# config/packages/security.yaml
 security:
     password_hashers:
         App\Entity\User:
             algorithm: auto
 
     role_hierarchy:
-            ROLE_ADMIN: [ROLE_USER]
-            ROLE_USER: []
-            
+        ROLE_ADMIN: [ROLE_USER]
+        ROLE_USER: []
+
     providers:
         app_user_provider:
             entity:
@@ -14,26 +55,34 @@ security:
                 property: username
 
     firewalls:
+
+        refresh_token:
+            pattern: ^/api/token/refresh$ 
+            stateless: true
+
         login:
-            pattern: ^/api/login
+            pattern: ^/api/login_check$ 
             stateless: true
             provider: app_user_provider
             json_login:
-                check_path: /api/login_check
+                check_path: /api/login_check 
                 username_path: username
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
-        api:
-            pattern: ^/api/
+        api: # Twój główny firewall API
+            pattern: ^/api/ 
             stateless: true
-            jwt: ~
-
+            jwt: ~ 
 
 
     access_control:
-        - { path: ^/api/doc, roles: PUBLIC_ACCESS }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^api/register, roles: PUBLIC_ACCESS }
-        - { path: ^/api, roles: ROLE_USER }
+        # Zezwól na dostęp PUBLIC_ACCESS dla trasy logowania i odświeżania
+        - { path: ^/api/login_check$, roles: PUBLIC_ACCESS }
+        - { path: ^/api/token/refresh$, roles: PUBLIC_ACCESS } # Dostęp publiczny dla odświeżania
+        - { path: ^/api/doc, roles: PUBLIC_ACCESS } # Dokumentacja API
+        - { path: ^/api/register$, roles: PUBLIC_ACCESS } # Rejestracja
+
+
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY } 
