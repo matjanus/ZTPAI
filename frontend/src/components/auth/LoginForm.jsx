@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "./AuthForm.css";
 
-export default function LoginForm() {
+export default function LoginForm( { expired = false } ) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (expired) {
+      setError("Your session has expired. Log in again.");
+    }
+  }, [expired]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,15 +28,16 @@ export default function LoginForm() {
       });
 
       if (!res.ok) {
-        setError("Nieprawidłowy login lub hasło.");
+        setError("Invalid login or password.");
         return;
       }
 
       const data = await res.json();
       localStorage.setItem("token", data.token);
-      navigate("/"); // redirect to homepage
+      localStorage.setItem("refreshToken", data.refresh_token);
+      navigate("/"); 
     } catch {
-      setError("Błąd połączenia z serwerem.");
+      setError("Server connection error.");
     }
   };
 

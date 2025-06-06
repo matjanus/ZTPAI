@@ -13,7 +13,14 @@ export default function UserProfilePage() {
   const [userExists, setUserExists] = useState(true);
   const token = localStorage.getItem('token');
 
+  const navbarRef = useRef(null);
+  const bodyRef = useRef(null);
+
+  useDynamicBodyHeight(navbarRef, bodyRef);
+
   useEffect(() => {
+
+  
     const fetchUser = async () => {
       try {
         const res = await fetch(`http://127.0.0.1:8000/api/user/${id}`, {
@@ -53,14 +60,10 @@ export default function UserProfilePage() {
     return (
       <div className='user-profile-page'>
         <Navbar />
+        <ErrorMessage message="User not found" />
       </div>
     );
   }
-
-  const navbarRef = useRef(null);
-  const bodyRef = useRef(null);
-
-  useDynamicBodyHeight(navbarRef, bodyRef);
 
   return (
     <div className='user-profile-page'>

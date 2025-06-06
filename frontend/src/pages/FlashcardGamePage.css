@@ -11,3 +11,9 @@
   font-family: sans-serif;
   max-width: 60%;
 }
+
+.loading-message{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
