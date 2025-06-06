@@ -13,4 +13,4 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
 
-CMD bash -c "composer install && php -S 0.0.0.0:8000 -t public"
+CMD bash -c "composer install"
